@@ -1,35 +1,14 @@
-import { dirname, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import { type ViteUserConfig, defineConfig } from "vitest/config";
+import { type ViteUserConfig, defineConfig, mergeConfig } from "vitest/config";
+import sharedConfig from './packages/zod/vitest.shared.config.js'
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-export default defineConfig({
-  resolve: {
-    conditions: ["@zod/source", "default"],
-    externalConditions: ["@zod/source", "default"],
-  },
-  ssr: {
-    resolve: {
-      conditions: ["@zod/source", "default"],
-      externalConditions: ["@zod/source", "default"],
+export default mergeConfig(
+  sharedConfig,
+  defineConfig({
+    test: {
+      projects: [
+        "./packages/*/vitest.config.ts",
+        "./vitest.compile.config.ts",
+      ],
     },
-  },
-  test: {
-    projects: [
-      resolve(__dirname, "packages/*/vitest.config.*"),
-      resolve(__dirname, "vitest.compile.config.ts"),
-    ],
-    watch: false,
-    isolate: true,
-    setupFiles: [resolve(__dirname, "scripts/fail-on-console.ts")],
-    typecheck: {
-      include: ["**/*.test.ts"],
-      enabled: true,
-      ignoreSourceErrors: false,
-      checker: "tsc",
-      tsconfig: "./tsconfig.json",
-    },
-    silent: true,
-  },
-}) as ViteUserConfig;
+  }),
+) as ViteUserConfig;

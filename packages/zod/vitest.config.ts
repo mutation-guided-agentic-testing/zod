@@ -1,8 +1,8 @@
 import { defineProject, mergeConfig } from "vitest/config";
-import rootConfig from "../../vitest.config.js";
+import sharedConfig from './vitest.shared.config.js';
 
 export default mergeConfig(
-  rootConfig,
+  sharedConfig,
   defineProject({
     resolve: {
       conditions: ["@zod/source", "default"],
