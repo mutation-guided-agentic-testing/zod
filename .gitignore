@@ -39,3 +39,5 @@ research/
 changelog_config.json
 
 agents.local.md
+
+.stryker-tmp
