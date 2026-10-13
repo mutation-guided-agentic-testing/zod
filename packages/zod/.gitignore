@@ -1,5 +1,6 @@
 **/*.js
 **/*.mjs
+!stryker.config.mjs
 **/*.cjs
 **/*.d.ts
 **/*.d.mts
